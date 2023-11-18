@@ -24,11 +24,7 @@ export default {
   },
   methods: {
     async fetchUsers() {
-      try {
-        this.users = await getUsers(this.countOfUser);
-      } catch (err) {
-        console.log('error when fetching', err)
-      }
+      this.users = await getUsers(this.countOfUser);
     },
   }
 }
