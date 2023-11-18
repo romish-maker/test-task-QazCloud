@@ -1,26 +1,38 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <Table :users="users"/>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Table from './components/Table';
+import { getUsers } from "@/services/userService";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Table
+  },
+  data() {
+    return {
+      users: [],
+      countOfUser: 150,
+    }
+  },
+  mounted() {
+    this.fetchUsers()
+  },
+  methods: {
+    async fetchUsers() {
+      try {
+        this.users = await getUsers(this.countOfUser);
+      } catch (err) {
+        console.log('error when fetching', err)
+      }
+    },
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
